@@ -57,4 +57,29 @@ class User extends Authenticatable implements JWTSubject
     {
         return [];
     }
+
+    public function urls()
+    {
+        return $this->hasMany(Url::class);
+    }
+
+    public function addUrl($body)
+    {   
+        $shortened = $this->shortenUrl($body);
+
+        $url = new Url();
+        $url->full_body = $body;
+        $url->shortened_body = $shortened;
+        $url->user_id = $this->id;
+
+        $url->save();
+
+        return $url;
+    }
+
+    protected function shortenUrl($full) {
+        $shortened = str_replace('http://', '', $full);
+        $shortened = str_replace('https://', '', $shortened);
+        return $shortened;
+    }
 }
