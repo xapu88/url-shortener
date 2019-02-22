@@ -67,6 +67,15 @@ class User extends Authenticatable implements JWTSubject
     {   
         $shortened = $this->shortenUrl($body);
 
+        // fully aware that checking if user has already same url can be done better
+        // (maybe with conditional validation?)
+        // but I need more time because I had no experience in Laravel to make this work...
+        // foreach($this->urls() as $existing) {
+        //     if ($existing.full_body == $body) {
+        //         return;
+        //     }
+        // }
+
         $url = new Url();
         $url->full_body = $body;
         $url->shortened_body = $shortened;
