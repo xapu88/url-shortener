@@ -17,3 +17,7 @@ Route::group(['middleware' => 'api', 'prefix' => 'auth'], function ($router) {
     Route::post('login', 'AuthController@login');
     Route::post('logout', 'AuthController@logout');
 });
+
+Route::group(['middleware' => 'api'], function ($router) {
+    Route::post('/urls', 'UrlsController@store');
+});
